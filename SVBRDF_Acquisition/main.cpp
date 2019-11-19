@@ -6,7 +6,6 @@
 #include <opencv2/highgui.hpp>
 
 #include "utils.h"
-
 using namespace cv;
 
 int main()
@@ -20,7 +19,7 @@ int main()
 	vector<vector<Point2f>> imagePoints;
 	vector<string> imageList;
 
-	// 待确定
+	// 内角点 行 列数
 	boardSize.width = 9;
 	boardSize.height = 6;
 
@@ -44,7 +43,7 @@ int main()
 		}
 
 		/*  */
-		vector<Point2f> pointbuf; 
+		vector<Point2f> pointbuf;
 		cvtColor(view, viewGray, COLOR_BGR2GRAY); // 转换灰度图
 
 		// find corners
@@ -64,19 +63,14 @@ int main()
 	std::cout << "标定开始 ：" << endl;
 	squareSize = 10; // 每个棋盘格的大小
 	vector<vector<Point3f>> objectPoints; // 保存标定板上的三维坐标
-
 	// 内参矩阵
 	Mat cameraMatrix = Mat(3, 3, CV_32FC1, Scalar::all(0));
-
 	// 每幅图中的角点数量
 	vector<int> point_counts;
-
 	// 相机的畸变参数
 	distCoeffs = Mat::zeros(8, 1, CV_64F);
-
 	// rotation
 	vector<Mat> tvecsMat;
-
 	// translation
 	vector<Mat> rvecsMat;
 
@@ -102,7 +96,7 @@ int main()
 	for (size_t k = 0; k < nframe; k++) {
 		point_counts.push_back(boardSize.width * boardSize.height);
 	}
-		
+
 	calibrateCamera(objectPoints, imagePoints, imageSize, cameraMatrix, distCoeffs, rvecsMat, tvecsMat, 0);
 	std::cout << "评价标定结果 ====== " << std::endl;
 
@@ -132,8 +126,7 @@ int main()
 	}
 
 	/* 保存每幅图像的旋转矩阵 */
-	Mat rotation_matrix = Mat(3, 3, CV_32FC1, Scalar::all(0)); 
-
+	Mat rotation_matrix = Mat(3, 3, CV_32FC1, Scalar::all(0));
 	/* 相机内参 */
 	std::cout << "CameraMatrix ： " << endl;
 	std::cout << cameraMatrix << std::endl << std::endl;
