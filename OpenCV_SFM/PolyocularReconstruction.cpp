@@ -236,9 +236,7 @@ void init_structure(
 	maskout_points(p1, mask);
 	maskout_points(p2, mask);
 	maskout_colors(colors, mask);
-
-	
-
+    
 	Mat R0 = Mat::eye(3, 3, CV_64FC1);
 	Mat T0 = Mat::zeros(3, 1, CV_64FC1);
 	reconstruct(K, R0, T0, R, T, p1, p2, structure);
