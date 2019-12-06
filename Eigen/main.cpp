@@ -9,7 +9,7 @@ using namespace std;
 #define MATRIX_SIZE 50 
 
 int main()
-{
+{ 
 
 	Eigen::Matrix<float, 2, 3> matrix_23;
 
